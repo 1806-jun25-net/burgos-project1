@@ -1,0 +1,11 @@
+C:\Revature\projects\PizzaPlace\PizzaPlace.Data\bin\Debug\netcoreapp2.1\PizzaPlace.Data.deps.json
+C:\Revature\projects\PizzaPlace\PizzaPlace.Data\bin\Debug\netcoreapp2.1\PizzaPlace.Data.dll
+C:\Revature\projects\PizzaPlace\PizzaPlace.Data\obj\Debug\netcoreapp2.1\PizzaPlace.Data.csprojAssemblyReference.cache
+C:\Revature\projects\PizzaPlace\PizzaPlace.Data\obj\Debug\netcoreapp2.1\PizzaPlace.Data.csproj.CoreCompileInputs.cache
+C:\Revature\projects\PizzaPlace\PizzaPlace.Data\obj\Debug\netcoreapp2.1\PizzaPlace.Data.AssemblyInfoInputs.cache
+C:\Revature\projects\PizzaPlace\PizzaPlace.Data\obj\Debug\netcoreapp2.1\PizzaPlace.Data.AssemblyInfo.cs
+C:\Revature\projects\PizzaPlace\PizzaPlace.Data\bin\Debug\netcoreapp2.1\PizzaPlace.Data.runtimeconfig.json
+C:\Revature\projects\PizzaPlace\PizzaPlace.Data\bin\Debug\netcoreapp2.1\PizzaPlace.Data.runtimeconfig.dev.json
+C:\Revature\projects\PizzaPlace\PizzaPlace.Data\bin\Debug\netcoreapp2.1\PizzaPlace.Data.pdb
+C:\Revature\projects\PizzaPlace\PizzaPlace.Data\obj\Debug\netcoreapp2.1\PizzaPlace.Data.dll
+C:\Revature\projects\PizzaPlace\PizzaPlace.Data\obj\Debug\netcoreapp2.1\PizzaPlace.Data.pdb

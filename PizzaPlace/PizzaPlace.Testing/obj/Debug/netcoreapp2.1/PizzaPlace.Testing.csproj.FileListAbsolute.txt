@@ -1,0 +1,14 @@
+C:\Revature\projects\PizzaPlace\PizzaPlace.Testing\bin\Debug\netcoreapp2.1\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Revature\projects\PizzaPlace\PizzaPlace.Testing\bin\Debug\netcoreapp2.1\xunit.runner.reporters.netcoreapp10.dll
+C:\Revature\projects\PizzaPlace\PizzaPlace.Testing\bin\Debug\netcoreapp2.1\xunit.runner.utility.netcoreapp10.dll
+C:\Revature\projects\PizzaPlace\PizzaPlace.Testing\bin\Debug\netcoreapp2.1\PizzaPlace.Testing.deps.json
+C:\Revature\projects\PizzaPlace\PizzaPlace.Testing\bin\Debug\netcoreapp2.1\PizzaPlace.Testing.runtimeconfig.json
+C:\Revature\projects\PizzaPlace\PizzaPlace.Testing\bin\Debug\netcoreapp2.1\PizzaPlace.Testing.runtimeconfig.dev.json
+C:\Revature\projects\PizzaPlace\PizzaPlace.Testing\bin\Debug\netcoreapp2.1\PizzaPlace.Testing.dll
+C:\Revature\projects\PizzaPlace\PizzaPlace.Testing\bin\Debug\netcoreapp2.1\PizzaPlace.Testing.pdb
+C:\Revature\projects\PizzaPlace\PizzaPlace.Testing\obj\Debug\netcoreapp2.1\PizzaPlace.Testing.csprojAssemblyReference.cache
+C:\Revature\projects\PizzaPlace\PizzaPlace.Testing\obj\Debug\netcoreapp2.1\PizzaPlace.Testing.csproj.CoreCompileInputs.cache
+C:\Revature\projects\PizzaPlace\PizzaPlace.Testing\obj\Debug\netcoreapp2.1\PizzaPlace.Testing.AssemblyInfoInputs.cache
+C:\Revature\projects\PizzaPlace\PizzaPlace.Testing\obj\Debug\netcoreapp2.1\PizzaPlace.Testing.AssemblyInfo.cs
+C:\Revature\projects\PizzaPlace\PizzaPlace.Testing\obj\Debug\netcoreapp2.1\PizzaPlace.Testing.dll
+C:\Revature\projects\PizzaPlace\PizzaPlace.Testing\obj\Debug\netcoreapp2.1\PizzaPlace.Testing.pdb

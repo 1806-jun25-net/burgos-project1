@@ -1,0 +1,16 @@
+C:\Revature\projects\PizzaPlace\PizzaPlace.UI\obj\Debug\netcoreapp2.1\PizzaPlace.UI.csprojAssemblyReference.cache
+C:\Revature\projects\PizzaPlace\PizzaPlace.UI\obj\Debug\netcoreapp2.1\PizzaPlace.UI.csproj.CoreCompileInputs.cache
+C:\Revature\projects\PizzaPlace\PizzaPlace.UI\obj\Debug\netcoreapp2.1\PizzaPlace.UI.AssemblyInfoInputs.cache
+C:\Revature\projects\PizzaPlace\PizzaPlace.UI\obj\Debug\netcoreapp2.1\PizzaPlace.UI.AssemblyInfo.cs
+C:\Revature\projects\PizzaPlace\PizzaPlace.UI\bin\Debug\netcoreapp2.1\PizzaPlace.UI.deps.json
+C:\Revature\projects\PizzaPlace\PizzaPlace.UI\bin\Debug\netcoreapp2.1\PizzaPlace.UI.runtimeconfig.json
+C:\Revature\projects\PizzaPlace\PizzaPlace.UI\bin\Debug\netcoreapp2.1\PizzaPlace.UI.runtimeconfig.dev.json
+C:\Revature\projects\PizzaPlace\PizzaPlace.UI\bin\Debug\netcoreapp2.1\PizzaPlace.UI.dll
+C:\Revature\projects\PizzaPlace\PizzaPlace.UI\bin\Debug\netcoreapp2.1\PizzaPlace.UI.pdb
+C:\Revature\projects\PizzaPlace\PizzaPlace.UI\obj\Debug\netcoreapp2.1\PizzaPlace.UI.dll
+C:\Revature\projects\PizzaPlace\PizzaPlace.UI\obj\Debug\netcoreapp2.1\PizzaPlace.UI.pdb
+C:\Revature\projects\PizzaPlace\PizzaPlace.UI\bin\Debug\netcoreapp2.1\PizzaPlace.Library.dll
+C:\Revature\projects\PizzaPlace\PizzaPlace.UI\bin\Debug\netcoreapp2.1\PizzaPlace.Library.pdb
+C:\Revature\projects\PizzaPlace\PizzaPlace.UI\obj\Debug\netcoreapp2.1\PizzaPlace.UI.csproj.CopyComplete
+C:\Revature\projects\PizzaPlace\PizzaPlace.UI\bin\Debug\netcoreapp2.1\PizzaPlace.Data.dll
+C:\Revature\projects\PizzaPlace\PizzaPlace.UI\bin\Debug\netcoreapp2.1\PizzaPlace.Data.pdb
