@@ -1,0 +1,52 @@
+﻿@model PizzaPlace.DataAccess.Users
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>Welcome to Kevin's Pizza</h2>
+
+<h4>Please fill the data below</h4>
+<hr />
+<div class="row">
+    <div>
+        
+        
+    </div>
+    <div class="col-md-4">
+        <form asp-action="AddNewUser">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UsersId" />
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Continue" class="btn btn-default" />
+            </div>
+
+
+        </form>
+        <form asp-controller="Users" asp-action="Create" method="get">
+            <button type="submit">Create</button>
+        </form>
+
+
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

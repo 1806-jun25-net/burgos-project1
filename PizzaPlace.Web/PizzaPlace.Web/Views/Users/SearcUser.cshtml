@@ -1,0 +1,44 @@
+﻿@model PizzaPlace.DataAccess.Users
+@{
+    ViewData["Title"] = "SearcUser";
+}
+<h2 align="center">User Search</h2>
+<div>
+    <h4></h4>
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="SearcUser">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="UsersId" />
+                <div class="form-group">
+                    <label asp-for="FirstName" class="control-label"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <input type="submit" value="Search" class="btn btn-default" />
+            </form>
+        </div>
+    </div>
+    <hr />
+    <dl>
+        <dt>
+            <h3>@TempData["Error"]</h3>
+        </dt>
+        <dt>
+            <h3>ID:@TempData["id"]</h3>
+        </dt>
+        <dt>
+            <h3>Name:@TempData["name"]</h3>
+        </dt>
+        <dt>
+            <h3>Last Name:@TempData["last"]</h3>
+        </dt>
+        <dt>
+            <h3>Phone:@TempData["phone"]</h3>
+        </dt>
+        <dt>
+            <h3>Location:@TempData["loc"]</h3>
+        </dt>
+    </dl>
+    <a asp-action="Home">Back to Home</a>
+</div>

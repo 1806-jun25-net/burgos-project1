@@ -1,0 +1,36 @@
+﻿@model PizzaPlace.DataAccess.OrderPizza
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>OrderPizza</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.OrderId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pizza)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pizza.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.OrderPizzaId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
