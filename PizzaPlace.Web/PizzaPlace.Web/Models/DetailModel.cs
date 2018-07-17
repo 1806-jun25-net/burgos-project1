@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,7 +15,11 @@ namespace PizzaPlace.Web.Models
         public IEnumerable<PizzaModel> Pizza { get; set; }
 
         public int Counter { get; set; } = 1;
+
+        [Required]
         public SelectListItem SelectTopping { get; set; }
+
+        [Required]
         public SelectListItem SelectSize { get; set; }
     }
 }

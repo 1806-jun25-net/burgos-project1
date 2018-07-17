@@ -1,45 +1,48 @@
-﻿@*@model PizzaPlace.Web.Models.DetailModel
+﻿@model PizzaPlace.Web.Models.DetailModel
 
-@{
-    ViewData["Title"] = "PlaceAnOrder";
-}
+    @{
+        ViewData["Title"] = "PlaceAnOrder";
+    }
 
-<form asp-action="PlaceAnOrder">
-    <div class="form-group">
-        @Html.DropDownListFor(x => "SelectTopping", new List<SelectListItem>
-        {
-              new SelectListItem() {Text = "Cheese Pizza", Value="Cheese"},
-              new SelectListItem() {Text = "Pepperoni Pizza", Value="Pepperoni"},
-              new SelectListItem() {Text = "Sausage Pizza", Value="Sausage"},
-              new SelectListItem() {Text = "Bacon Pizza", Value="Bacon"},
-              new SelectListItem() {Text = "Onions Pizza", Value="Onions"},
-              new SelectListItem() {Text = "Chicken Pizza", Value="Chicken"},
-              new SelectListItem() {Text = "Chorizo Pizza", Value="Chorizo"},
+    <form asp-action="PlaceAnOrder" method="post">
+        <div class="form-group">
+            @Html.DropDownList("SelectTopping", new List<SelectListItem>
+            {
+                  new SelectListItem() {Text = "Cheese Pizza", Value="Cheese"},
+                  new SelectListItem() {Text = "Pepperoni Pizza", Value="Pepperoni"},
+                  new SelectListItem() {Text = "Sausage Pizza", Value="Sausage"},
+                  new SelectListItem() {Text = "Bacon Pizza", Value="Bacon"},
+                  new SelectListItem() {Text = "Onions Pizza", Value="Onions"},
+                  new SelectListItem() {Text = "Chicken Pizza", Value="Chicken"},
+                  new SelectListItem() {Text = "Chorizo Pizza", Value="Chorizo"},
 
-        }, "Select A Topping")
+            }, "Select A Topping")
         </div>
 
         <div class="form-group">
-            @Html.DropDownListFor(x => "SelectSize", new List<SelectListItem>
+            @Html.DropDownList("SelectSize", new List<SelectListItem>
             {
                   new SelectListItem() {Text = "Small  -> $5.00", Value = "small"},
                   new SelectListItem() {Text = "Medium -> $10.00", Value = "medium"},
                   new SelectListItem() {Text = "Large  -> $16.00", Value = "large"},
 
             }, "Select A Size")
+
+
+            @*<input type="hidden" value="Amount" asp-for="Count" />*@
         </div>
 
-        <input type="hidden" value="Amount" asp-for="Count" />
+       
 
         <div class="form-group">
             <input type="submit" value="Add Pizza" class="btn btn-default" />
         </div>
 
-</form>
+    </form>
 
-<form asp-action="ShowOrder">
+    <form asp-action="ShowOrder">
 
-    <div class="form-group">
-        <input type="submit" value="Place Order" class="btn btn-default" />
-    </div>
-</form>*@
+        <div class="form-group">
+            <input type="submit" value="Place Order" class="btn btn-default" />
+        </div>
+    </form>

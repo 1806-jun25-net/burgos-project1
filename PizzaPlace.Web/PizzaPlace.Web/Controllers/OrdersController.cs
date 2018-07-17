@@ -28,9 +28,9 @@ namespace PizzaPlace.Web.Controllers
         public IActionResult PlaceAnOrder()
         {
             
-            OrdersPizzaModel orderPizza = new OrdersPizzaModel();
+            //OrdersPizzaModel orderPizza = new OrdersPizzaModel();
 
-            return View(orderPizza);
+            return View();
         }
 
         // Post: PlaceAnOrder
@@ -38,6 +38,7 @@ namespace PizzaPlace.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult PlaceAnOrder( OrdersPizzaModel orderPizza,  Users user)
         {
+            
             PizzaModel pizza = new PizzaModel();
             OrdersModel order = new OrdersModel();
             DetailModel myModel = new DetailModel();
