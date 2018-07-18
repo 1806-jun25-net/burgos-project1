@@ -1,13 +1,13 @@
 ﻿@model PizzaPlace.DataAccess.Users
 @{
-    ViewData["Title"] = "SearcUser";
+    ViewData["Title"] = "SearchUser";
 }
 <h2 align="center">User Search</h2>
 <div>
     <h4></h4>
     <div class="row">
         <div class="col-md-4">
-            <form asp-action="SearcUser">
+            <form asp-action="SearchUser">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="UsersId" />
                 <div class="form-group">
@@ -25,7 +25,7 @@
             <h3>@TempData["Error"]</h3>
         </dt>
         <dt>
-            <h3>ID:@TempData["id"]</h3>
+            <h3>ID:@TempData["userId"]</h3>
         </dt>
         <dt>
             <h3>Name:@TempData["name"]</h3>

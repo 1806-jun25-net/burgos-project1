@@ -32,6 +32,7 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Users" asp-action="Login">Home</a></li>
                     <li><a asp-area="" asp-controller="Users" asp-action="Home">Manager</a></li>
+                    <li><a asp-area="" asp-controller="Inventories" asp-action="Index">Inventory</a></li>
                 </ul>
             </div>
         </div>
@@ -42,9 +43,9 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
+        @*<footer>
             <p>&copy; 2018 - PizzaPlace.Web</p>
-        </footer>
+        </footer>*@
     </div>
 
     <environment include="Development">

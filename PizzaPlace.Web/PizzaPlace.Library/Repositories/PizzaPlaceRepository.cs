@@ -83,7 +83,7 @@ namespace PizzaPlace.Library
 
 
         ///////////////////// Get's the user's id by its phone number ////////////////////////////////////////////////////
-        public int? GetUserIDByPhone(string findUser, string phone)
+        public int GetUserIDByPhone(string findUser, string phone)
         {
 
             var user = _db.Users.FirstOrDefault(g => g.FirstName == findUser && g.Phone == phone);

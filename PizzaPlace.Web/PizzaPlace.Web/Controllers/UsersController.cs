@@ -36,7 +36,7 @@ namespace PizzaPlace.Web.Controllers
             return View(user);
         }
 
-        public IActionResult SearcUser()
+        public IActionResult SearchUser()
         {
             Users user = new Users();
             return View(user);
@@ -44,7 +44,7 @@ namespace PizzaPlace.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SearcUser(Users user)
+        public ActionResult SearchUser(Users user)
         {
             ////////////////////////////////////////////////////////////////////////////////////////
             //var builder = new ConfigurationBuilder()
@@ -57,23 +57,23 @@ namespace PizzaPlace.Web.Controllers
             ////////////////////////////////////////////////////////////////////////////////////////
 
             //var repo = new UserRepository(new PizzaPalacedbContext(optionsBuilder.Options));
-            var use = Repo.GetUsers();
-            var ELUSER = use.FirstOrDefault(e => e.FirstName == user.FirstName);
-            if (ELUSER == null)
+            var users = Repo.GetUsers();
+            var aUser = users.FirstOrDefault(x => x.FirstName == user.FirstName);
+            if (aUser == null)
             {
                 TempData["Error"] = "Error: User not found";
             }
             else
             {
-                TempData["id"] = ELUSER.UsersId;
-                TempData["name"] = ELUSER.FirstName;
-                TempData["last"] = ELUSER.LastName;
-                TempData["phone"] = ELUSER.Phone;
-                if (ELUSER.LocationId == 1)
+                TempData["userId"] = aUser.UsersId;
+                TempData["name"] = aUser.FirstName;
+                TempData["last"] = aUser.LastName;
+                TempData["phone"] = aUser.Phone;
+                if (aUser.LocationId == 1)
                 {
                     TempData["loc"] = "Kevin's Pizza";
                 }
-                else if (ELUSER.LocationId == 2)
+                else if (aUser.LocationId == 2)
                 {
                     TempData["loc"] = "Pizzageddon";
                 }
@@ -134,84 +134,56 @@ namespace PizzaPlace.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddNewUser(Users user)
+        public IActionResult AddNewUser(UsersModel user)
         {
 
             bool foundUser = false;
+            TempData["firstname"] = user.FirstName;
+            TempData["lastname"] = user.LastName;
+            TempData["phone"] = user.Phone;
+            TempData["Count"] = 1; // Counter for the Pizzas being made
+            TempData["order_total"] = 0;
 
 
-            var allUsers = Repo.GetUsers();
+            var allMyUsers = Repo.GetUsers();
 
-            foreach (var aUser in allUsers)
+            foreach (var aUser in allMyUsers)
             {
                 if (aUser.FirstName == user.FirstName && aUser.Phone == user.Phone)
                 {
                     user.UsersId = aUser.UsersId;
+                    TempData["userid"] = user.UsersId;
                     foundUser = true;
-                    goto aNewUser;
+                    break;
                 }
 
             }
 
-            aNewUser:
+
             if (foundUser == true)
             {
-                var aUser = new Users
-                {
-                    UsersId = user.UsersId,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Phone = user.Phone
-                };
+                TempData["welcome"] = "Welcome Back " + user.FirstName;
 
             }
             else if (foundUser == false)
             {
-
+                TempData["welcome"] = "Welcome " + user.FirstName;
 
                 //create new user
                 Repo.AddUsers(user.FirstName, user.LastName, user.Phone);
                 Repo.SaveChanges();
-
-
+                user.UsersId = Repo.GetUserIDByPhone(user.FirstName, user.Phone);
 
             }
 
             return RedirectToAction("ChooseALocation", "Locations", user);
-            // return View(user);
         }
 
         public IActionResult Login()
         {
             return View();
         }
-
-       
-
-        //public ActionResult Search([FromQuery]string search, string lastName, string phone, int location)
-        //{
-        //    var user = Repo.GetUser(search, phone);
-
-
-        //    user.Select(x => new Users
-        //    {
-        //        UsersId =
-        //        FirstName = x.search,
-        //        Reviews = x.Reviews.Select(y => new Review
-        //        {
-        //            ReviewerName = y.ReviewerName,
-        //            Score = y.Score,
-        //            Text = y.Text
-        //        })
-        //    });
-        //    Repo.AddUsers(search, lastName, phone, location);
-        //    return View(search);
-
-
-        //}
-
-
-
+        
 
 
 

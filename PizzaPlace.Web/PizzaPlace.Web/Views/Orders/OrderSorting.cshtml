@@ -1,0 +1,41 @@
+﻿@using PizzaPlace.DataAccess
+@model DetailModel
+@{
+    ViewBag.Title = "Home Page";
+}
+<h2>@ViewBag.Message</h2>
+
+<p><b>Orders:</b></p>
+
+<table>
+    <tr>
+       
+        <th>  @Html.ActionLink("Order Total", "OrderSorting", new { sortOrder = ViewBag.PriceSortParm }) </th>
+        <th>  @Html.ActionLink("Order Time", "OrderSorting", new { sortOrder = ViewBag.DateSortParm }) </th>
+    </tr>
+    @foreach (Orders order in Model.Orders)
+    {
+        <tr>
+            <td>@order.Total</td>
+            <td>@order.OrderTime</td>
+        </tr>
+    }
+</table>
+
+<p><b>Pizzas:</b></p>
+
+<table>
+    <tr>
+        <th>Pizza</th>
+        <th>Size</th>
+        <th>Price</th>
+    </tr>
+    @foreach (Pizza pizza in Model.Pizza)
+    {
+        <tr>
+            <td>@pizza.Name</td>
+            <td>@pizza.Size</td>
+            <td>@pizza.Price</td>
+        </tr>
+    }
+</table>  

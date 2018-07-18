@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PizzaPlace.DataAccess
 {
@@ -12,6 +13,8 @@ namespace PizzaPlace.DataAccess
         }
 
         public int LocationId { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
         public Inventory Inventory { get; set; }

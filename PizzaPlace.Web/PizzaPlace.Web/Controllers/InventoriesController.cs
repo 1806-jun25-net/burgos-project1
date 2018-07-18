@@ -2,56 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PizzaPlace.DataAccess;
-using PizzaPlace.Web.Models;
 
 namespace PizzaPlace.Web.Controllers
 {
-    public class LocationsController : Controller
+    public class InventoriesController : Controller
     {
         private readonly PizzaPlaceDBContext _context;
 
-        public LocationsController(PizzaPlaceDBContext context)
+        public InventoriesController(PizzaPlaceDBContext context)
         {
             _context = context;
         }
 
-        // GET
-        public IActionResult ChooseALocation(Users user)
-        {
-            LocationModel location = new LocationModel();
-            return View(location);
-        }
-
-        // Post
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult ChooseALocation(LocationModel location, Users user, IFormCollection locationData)
-        {
-            var select = location.LocationId;
-
-            location.LocationId = int.Parse(locationData["SelectedLocation"]);
-            TempData["locationid"] = location.LocationId;
-            //user.LocationId = location.LocationId;
-
-           
-
-            return RedirectToAction("PlaceAnOrder","Orders", user);
-        }
-
-
-
-        // GET: Locations
+        // GET: Inventories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Locations.ToListAsync());
+            var pizzaPlaceDBContext = _context.Inventory.Include(i => i.Location);
+            return View(await pizzaPlaceDBContext.ToListAsync());
         }
 
-        // GET: Locations/Details/5
+        // GET: Inventories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -59,39 +33,42 @@ namespace PizzaPlace.Web.Controllers
                 return NotFound();
             }
 
-            var locations = await _context.Locations
+            var inventory = await _context.Inventory
+                .Include(i => i.Location)
                 .FirstOrDefaultAsync(m => m.LocationId == id);
-            if (locations == null)
+            if (inventory == null)
             {
                 return NotFound();
             }
 
-            return View(locations);
+            return View(inventory);
         }
 
-        // GET: Locations/Create
+        // GET: Inventories/Create
         public IActionResult Create()
         {
+            ViewData["LocationId"] = new SelectList(_context.Locations, "LocationId", "Name");
             return View();
         }
 
-        // POST: Locations/Create
+        // POST: Inventories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LocationId,Name")] Locations locations)
+        public async Task<IActionResult> Create([Bind("LocationId,Cheese,Pepperoni,Sausage,Bacon,Onions,Chicken,Chorizo,Dough")] Inventory inventory)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(locations);
+                _context.Add(inventory);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(locations);
+            ViewData["LocationId"] = new SelectList(_context.Locations, "LocationId", "Name", inventory.LocationId);
+            return View(inventory);
         }
 
-        // GET: Locations/Edit/5
+        // GET: Inventories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -99,22 +76,23 @@ namespace PizzaPlace.Web.Controllers
                 return NotFound();
             }
 
-            var locations = await _context.Locations.FindAsync(id);
-            if (locations == null)
+            var inventory = await _context.Inventory.FindAsync(id);
+            if (inventory == null)
             {
                 return NotFound();
             }
-            return View(locations);
+            ViewData["LocationId"] = new SelectList(_context.Locations, "LocationId", "Name", inventory.LocationId);
+            return View(inventory);
         }
 
-        // POST: Locations/Edit/5
+        // POST: Inventories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("LocationId,Name")] Locations locations)
+        public async Task<IActionResult> Edit(int id, [Bind("LocationId,Cheese,Pepperoni,Sausage,Bacon,Onions,Chicken,Chorizo,Dough")] Inventory inventory)
         {
-            if (id != locations.LocationId)
+            if (id != inventory.LocationId)
             {
                 return NotFound();
             }
@@ -123,12 +101,12 @@ namespace PizzaPlace.Web.Controllers
             {
                 try
                 {
-                    _context.Update(locations);
+                    _context.Update(inventory);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LocationsExists(locations.LocationId))
+                    if (!InventoryExists(inventory.LocationId))
                     {
                         return NotFound();
                     }
@@ -139,10 +117,11 @@ namespace PizzaPlace.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(locations);
+            ViewData["LocationId"] = new SelectList(_context.Locations, "LocationId", "Name", inventory.LocationId);
+            return View(inventory);
         }
 
-        // GET: Locations/Delete/5
+        // GET: Inventories/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -150,30 +129,31 @@ namespace PizzaPlace.Web.Controllers
                 return NotFound();
             }
 
-            var locations = await _context.Locations
+            var inventory = await _context.Inventory
+                .Include(i => i.Location)
                 .FirstOrDefaultAsync(m => m.LocationId == id);
-            if (locations == null)
+            if (inventory == null)
             {
                 return NotFound();
             }
 
-            return View(locations);
+            return View(inventory);
         }
 
-        // POST: Locations/Delete/5
+        // POST: Inventories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var locations = await _context.Locations.FindAsync(id);
-            _context.Locations.Remove(locations);
+            var inventory = await _context.Inventory.FindAsync(id);
+            _context.Inventory.Remove(inventory);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool LocationsExists(int id)
+        private bool InventoryExists(int id)
         {
-            return _context.Locations.Any(e => e.LocationId == id);
+            return _context.Inventory.Any(e => e.LocationId == id);
         }
     }
 }

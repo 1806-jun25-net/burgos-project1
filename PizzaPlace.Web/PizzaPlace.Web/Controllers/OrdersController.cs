@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -24,105 +25,175 @@ namespace PizzaPlace.Web.Controllers
             Repo = repo;
         }
 
-        //Get: placeAnOrder
-        public IActionResult PlaceAnOrder()
-        {
-            
-            //OrdersPizzaModel orderPizza = new OrdersPizzaModel();
 
-            return View();
+
+        public ActionResult OrderSorting(string sortOrder, string searchString)
+        {
+
+            ViewBag.Message = "List of All Orders:";
+            DetailModel ODSP = new DetailModel
+            {
+                Orders = Repo.GetOrders(),
+                Pizza = Repo.GetPizzas(),
+                OrderPizza = Repo.GetOrdersPizzas(),
+                User = Repo.GetUsers(),
+            };
+
+            ViewBag.PriceSortParm = sortOrder == "Price" ? "Price_desc" : "Price";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "Date_desc" : "Date";
+            ODSP.Orders = from s in _context.Orders
+                       select s;
+
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    ODSP.Orders = ODSP.Orders.Where(s => s.CustomerName.ToUpper().Contains(searchString.ToUpper())
+            //                                || s.CustomerPhoneNumber.Contains(searchString));
+            //}
+
+            switch (sortOrder)
+            {
+                case "Price":
+                    ODSP.Pizza = ODSP.Pizza.OrderBy(s => s.Price);
+                    break;
+                case "Price_desc":
+                    ODSP.Pizza = ODSP.Pizza.OrderByDescending(s => s.Price);
+                    break;
+                case "Date":
+                    ODSP.Orders = ODSP.Orders.OrderBy(s => s.OrderTime);
+                    break;
+                case "Date_desc":
+                    ODSP.Orders = ODSP.Orders.OrderByDescending(s => s.OrderTime);
+                    break;
+                default:
+                    ODSP.Pizza = ODSP.Pizza.OrderBy(s => s.Price);
+                    break;
+            }
+
+            return View(ODSP);
         }
 
+
+
+
+
+
+
+
+
+        //Get: placeAnOrder
+        public ActionResult PlaceAnOrder(Users user)
+        {
+           
+            return View();
+        }
         // Post: PlaceAnOrder
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PlaceAnOrder( OrdersPizzaModel orderPizza,  Users user)
+        public IActionResult PlaceAnOrder(IFormCollection viewCol, DetailModel aModel, Users user)
         {
+
+            int UseridTD = int.Parse(TempData.Peek("userid").ToString());
+            int LocationTD = int.Parse(TempData.Peek("locationid").ToString());
+            string NameTD = TempData.Peek("firstname").ToString();
+            string LastnameTD = TempData.Peek("lastname").ToString();
+            string PhoneTD = TempData.Peek("phone").ToString();
+
+
+            // If the user wants to order more than 12 pizza's 
+            if (Count == 12)
+            {
+                ViewData["mesag"] = "You exceded order limit, you can only order 12 pizzas max. Place your order and try again.";
+                return RedirectToAction(nameof(PlaceAnOrder));
+            }
+
+            string SelectTopping = viewCol["SelectTopping"];
+            string Size = viewCol["SelectSize"];
+
+
+            int Price = 0;
+
+
+
+
+
+            // Calculates the total
+            if (Size == "Small")
+            {
+                Price = 5;
+
+                Total = int.Parse(TempData.Peek("order_total").ToString());
+                Total += 5;
+                TempData["order_total"] = Total;
+            }
+            else if (Size == "Medium")
+            {
+                Price = 10;
+
+                Total = int.Parse(TempData.Peek("order_total").ToString());
+                Total += 10;
+                TempData["order_total"] = Total;
+            }
+            else if (Size == "Large")
+            {
+                Price = 16;
+                Total = int.Parse(TempData.Peek("order_total").ToString());
+                Total += 16;
+                TempData["order_total"] = Total;
+            }
             
-            PizzaModel pizza = new PizzaModel();
-            OrdersModel order = new OrdersModel();
-            DetailModel myModel = new DetailModel();
 
-            pizza.Name = myModel.SelectTopping.Value;
-            pizza.Size = myModel.SelectSize.Value;
+            // Checks if there are enough resourses
+            bool checkInventory = Repo.SubsInventory(SelectTopping, UseridTD, Size);
 
-            // Sets the values
-            order.UsersId = user.UsersId;
-            order.LocationId = user.LocationId;
-            order.Total = Total;
-
-
-            if (Count <= 12)
+            if (checkInventory == true)
             {
 
+                // Add new pizza
+                Repo.AddPizzas(SelectTopping, Size, Price);
 
-                // Calculates the total
-                if (pizza.Size == "small")
+                //Check if the counter is at beginning to set it to 1
+                if (TempData.Peek("Count").ToString() == "1")
                 {
-                    pizza.Price = 5;
-                    Total = Total += 5;
+                    Count = 1;
+
                 }
-                else if (pizza.Size == "medium")
-                {
-                    pizza.Price = 10;
-                    Total = Total += 10;
-                }
-                else if (pizza.Size == "large")
-                {
-                    pizza.Price = 16;
-                    Total = Total += 16;
-                }
-
-                int price = int.Parse(pizza.Price.ToString());
-
-                // Checks if there are enough resourses
-                bool checkInventory = Repo.SubsInventory(pizza.Name, user.UsersId, pizza.Size);
-
-                if (checkInventory == true)
-                {
-
-                    // Add new pizza
-                    Repo.AddPizzas(pizza.Name, pizza.Size, price);
-
-                    // For creating just an order for every pizza
-                    if (Count < 1)
-                    {
-                        // Add New Order
-                        Repo.AddOrders(Total, order.LocationId, user.UsersId);
-
-                    }
-                    Count++;
-
-
-
-                    // Search for the pizza and order Id
-                    int? pizzaId = Repo.GetPizzaIdBySize(pizza.Name, pizza.Size);
-                    int? orderId = Repo.GetOrderId(user.UsersId);
-
-
-                    // Add new orderPizza
-                    Repo.AddOrderPizza(orderId, pizzaId);
-
-                    return RedirectToAction("PlaceAnOrder");
-                }
-                // if there are no more toppings for the pizza's
                 else
                 {
-                    ViewData["message"] = "Not Enough resourses to create a pizza, please try again later.";
-                    return RedirectToAction("PlaceAnOrder");
+                    Count = int.Parse(TempData.Peek("Count").ToString());
                 }
-            }
-            // If the user wants to order more than 12 pizza's 
-            else
-            {
-                ViewData["message"] = "You exceded order limit, you can only order 12 pizzas max. Place your order and try again.";
+
+                //For creating just an order for every pizza
+                if (Count < 2)
+                {
+                    // Add New Order
+                    Repo.AddOrders(Total, LocationTD, UseridTD);
+
+                }
+                Count++;// Increment counter to not create another order.
+                TempData["Count"] = Count;
+
+
+
+                // Search for the pizza and order Id
+                int? orderId = Repo.GetOrderByUserId(UseridTD);
+                int? pizzaId = Repo.GetPizzaIdBySize(SelectTopping, Size);
+                TempData["orderid"] = orderId;
+
+
+
+                // Add new orderPizza
+                Repo.AddOrderPizza(orderId, pizzaId);
+
                 return RedirectToAction("PlaceAnOrder");
             }
-
-
+            // if there are no more toppings for the pizza's in inventory
+            else
+            {
+                ViewData["message"] = "Not Enough resourses to create a pizza, please try again later.";
+                return RedirectToAction("PlaceAnOrder");
+            }
         }
-
-
+    
 
 
 
@@ -133,10 +204,12 @@ namespace PizzaPlace.Web.Controllers
             return View(await pizzaPlaceDBContext.ToListAsync());
         }
 
-        public ActionResult ShowOrder()
-        {
-            return View();
-        }
+
+        
+        //public ActionResult ShowOrder()
+        //{
+        //    return View();
+        //}
 
 
 
@@ -144,19 +217,15 @@ namespace PizzaPlace.Web.Controllers
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            int orderid = int.Parse(TempData.Peek("orderid").ToString());
+
+           
 
             var orders = await _context.Orders
                 .Include(o => o.Location)
                 .Include(o => o.Users)
-                .FirstOrDefaultAsync(m => m.OrderId == id);
-            if (orders == null)
-            {
-                return NotFound();
-            }
+                .FirstOrDefaultAsync(m => m.OrderId == orderid);
+            
 
             return View(orders);
         }
@@ -279,3 +348,4 @@ namespace PizzaPlace.Web.Controllers
         }
     }
 }
+

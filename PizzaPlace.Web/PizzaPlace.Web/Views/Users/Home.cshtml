@@ -9,93 +9,50 @@
         margin-bottom: 5px;
         display: inline-block;
         display: inline;
-        / for IE7*/ zoom: 1; /* for IE7*/
         vertical-align: middle;
         margin-left: 20px
     }
 
-    h4 {
-        display: inline-block;
-        display: inline;
-        / for IE7*/ zoom: 1; /* for IE7*/
-        float: left;
-        padding-top: 5px;
-        text-align: left;
-        width: 350px;
-    }
-</style>
-<h1 align="center">Manager Menu</h1>
+    
 
-<table class="table">
-    <thead>
-        <tr>
-            <th style="display: flex">
-                <div class="form-group">
-                    <h4>1) Get Pizza</h4>
-                    <button type="submit" class="btn btn-default "><a href="SearcUser">Go</a></button>
-                </div>
-            </th>
-        </tr>
-        <tr>
-            <th>
-                <div class="form-group">
-                    <h4>1) Search users by name</h4>
-                    <button type="submit" class="btn btn-default "><a href="SearcUser">Go</a></button>
-                </div>
-            </th>
-        </tr>
-        <tr>
-            <th>
-                <h4>2) Display all order history of a location</h4>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default "><a href="AngelitoOrder">Go</a></button>
-                </div>
-            </th>
-        </tr>
-        <tr>
-            <th>
-                <h4>3) Display all order history of a user</h4>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default "><a href="SearcUser">Go</a></button>
-                </div>
-            </th>
-        </tr>
-        <tr>
-            <th>
-                <h4>4) All Users</h4>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default "><a href="index">Go</a></button>
-                </div>
-            </th>
-        </tr>
-        <tr>
-            <th>
-                <h4>5) All Locations and Inventory</h4>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default "><a asp-area="" asp-controller="Locations" asp-action="Index">Go</a></button>
-                </div>
-            </th>
-        </tr>
-        <tr>
-            <th>
-                <h4>6) All Order</h4>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default "><a asp-area="" asp-controller="Orders" asp-action="Index">Go</a></button>
-                </div>
-            </th>
-        </tr>
-        <tr>
-            <th>
-                <h4>7) User - Order - Pizzas</h4>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default "><a asp-area="" asp-controller="PizzaOrder" asp-action="Index">Go</a></button>
-                </div>
-            </th>
-        </tr>
-        @*<th>
-                @Html.DisplayNameFor(model => model.DefaultLocationFkNavigation)
-            </th>
-            <th></th>*@
-        </tr>
-    </thead>
-</table>
+
+</style>
+
+
+<h1 align="left">Manager Menu</h1>
+    <div style="width: 100%;">
+        <div style="float:left; width: 50%">
+            <div class="form-group">
+                <h4>1) Search users by name</h4>
+                <button type="submit" class="btn btn-default "><a href="SearchUser">Go</a></button>
+            </div>
+
+            <h4>2) Display all order history of a location</h4>
+            <div class="form-group">
+                <button type="submit" class="btn btn-default "><a href="/Orders/OrderSorting">Go</a></button>
+            </div>
+
+            
+        </div>
+
+
+
+        <div style="float:right; width: 50%">
+            <h4>4) All Users</h4>
+            <div class="form-group">
+                <button type="submit" class="btn btn-default "><a href="index">Go</a></button>
+            </div>
+
+            <h4>5) All Locations</h4>
+            <div class="form-group">
+                <button type="submit" class="btn btn-default "><a asp-area="" asp-controller="Locations" asp-action="Index">Go</a></button>
+            </div>
+
+            <h4>6) All Order</h4>
+            <div class="form-group">
+                <button type="submit" class="btn btn-default "><a asp-area="" asp-controller="Orders" asp-action="Index">Go</a></button>
+            </div>
+
+
+        </div>
+    </div>
